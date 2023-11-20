@@ -1,0 +1,121 @@
+--liquibase formatted sql
+--changeset zero_waste:1
+
+CREATE TABLE Tickets (
+    id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    order_id BIGINT NOT NULL,
+    type VARCHAR(15) NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    comment VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Orders (
+    id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    user_id BIGINT NOT NULL,
+    address_id BIGINT NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    order_date DATE NOT NULL
+);
+
+CREATE TABLE Notifications (
+    id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    order_id BIGINT NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    content VARCHAR(100) NOT NULL,
+    date DATE NOT NULL
+);
+
+CREATE TABLE Users (
+    id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    home_address BIGINT NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    surname VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    role VARCHAR(50) NOT NULL,
+    login VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    account_status VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Addresses (
+    id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    street_name VARCHAR(50) NOT NULL,
+    building_number BIGINT NOT NULL,
+    apartment_number BIGINT NOT NULL,
+    postcode BIGINT NOT NULL
+);
+
+CREATE TABLE Seller_Reviews (
+    id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    user_id BIGINT NOT NULL,
+    seller_id BIGINT NOT NULL,
+    rating BIGINT NOT NULL,
+    comment VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Product_Reviews (
+    id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    user_id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
+    rating BIGINT NOT NULL,
+    comment VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Sellers (
+    id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    address_id BIGINT NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    login VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Products (
+    id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(100) NOT NULL,
+    price DOUBLE PRECISION
+);
+
+CREATE TABLE Product_Package (
+    id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    product_id BIGINT NOT NULL,
+    package_id BIGINT NOT NULL,
+    quantity BIGINT NOT NULL
+);
+
+CREATE TABLE Packages (
+    id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    order_id BIGINT NOT NULL,
+    seller_id BIGINT NOT NULL,
+    name VARCHAR (50) NOT NULL,
+    expiry_date DATE NOT NULL
+);
+
+ALTER TABLE Tickets ADD CONSTRAINT TICKET_ORDER_FK FOREIGN KEY (order_id) REFERENCES Orders (id);
+
+ALTER TABLE Orders ADD CONSTRAINT ORDER_USER_FK FOREIGN KEY (user_id) REFERENCES Users (id);
+
+ALTER TABLE Orders ADD CONSTRAINT ORDER_ADDRESS_FK FOREIGN KEY (address_id) REFERENCES Addresses (id);
+
+ALTER TABLE Notifications ADD CONSTRAINT NOTIFICATION_ORDER_FK FOREIGN KEY (order_id) REFERENCES Orders (id);
+
+ALTER TABLE Users ADD CONSTRAINT USER_ADDRESS_FK FOREIGN KEY (home_address) REFERENCES Addresses (id);
+
+ALTER TABLE Sellers ADD CONSTRAINT SELLER_ADDRESS_FK FOREIGN KEY (address_id) REFERENCES Addresses (id);
+
+ALTER TABLE Packages ADD CONSTRAINT PACKAGE_ORDER_FK FOREIGN KEY (order_id) REFERENCES Orders (id);
+
+ALTER TABLE Packages ADD CONSTRAINT PACKAGE_SELLER_FK FOREIGN KEY (seller_id) REFERENCES Sellers (id);
+
+ALTER TABLE Product_Package ADD CONSTRAINT PP_PRODUCT_FK FOREIGN KEY (product_id) REFERENCES Products (id);
+
+ALTER TABLE Product_Package ADD CONSTRAINT PP_PACKAGE_FK FOREIGN KEY (package_id) REFERENCES Packages (id);
+
+ALTER TABLE Seller_Reviews ADD CONSTRAINT SREVIEW_USER_FK FOREIGN KEY (user_id) REFERENCES Users (id);
+
+ALTER TABLE Seller_Reviews ADD CONSTRAINT SREVIEW_SELLER_FK FOREIGN KEY (seller_id) REFERENCES Sellers (id);
+
+ALTER TABLE Product_Reviews ADD CONSTRAINT PREVIEW_USER_FK FOREIGN KEY (user_id) REFERENCES Users (id);
+
+ALTER TABLE Product_Reviews ADD CONSTRAINT PREVIEW_PRODUCT_FK FOREIGN KEY (product_id) REFERENCES Products (id);
