@@ -15,7 +15,7 @@ public class Product_Package {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "package_id")
     private Package pack;
     @ManyToOne

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Edition</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Zero Waste</a>
+    </nav>
+</header>
+<main>
+    <div class="container">
+        <h1>Product Edition</h1>
+
+        <form action="#" method="post"  th:object="${product}">
+            <input type="hidden" th:field="${product.id}" />
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" minlength="0" maxlength="200" th:field="*{name}" required>
+                <p class="alert alert-dark error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{getName}"></p>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" name="description" rows="5" minlength="0" maxlength="100" th:field="*{description}" required></textarea>
+                <p class="alert alert-dark error-message" th:if="${#fields.hasErrors('description')}" th:errors="*{getDescription()}"></p>
+            </div>
+            <div class="form-group">
+                <label for="price">Description:</label>
+                <textarea class="form-control" id="price" name="price" rows="5" minlength="0" maxlength="100" th:field="*{price}" required></textarea>
+                <p class="alert alert-dark error-message" th:if="${#fields.hasErrors('price')}" th:errors="*{getPrice()()}"></p>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary" style="background-color: #545454;">Edit Product</button>
+            <a class="btn btn-primary" href="/products/all" style="background-color: #545454; color: #fff;">Back</a>
+        </form>
+    </div>
+</main>
+<footer>
+    <div class="container">
+        <p>© 2023 Zero Waste.</p>
+    </div>
+</footer>
+</body>
+</html>

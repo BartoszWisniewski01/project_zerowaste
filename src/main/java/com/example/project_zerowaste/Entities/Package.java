@@ -3,6 +3,7 @@ package com.example.project_zerowaste.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table (name = "Packages")
@@ -10,6 +11,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @Getter
+@Setter
 
 public class Package {
     @Id
@@ -26,4 +28,9 @@ public class Package {
     @ManyToOne
     @JoinColumn(name = "seller_id")
     private Seller seller;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pack")
+    private List<Product_Package> product_package;
 }

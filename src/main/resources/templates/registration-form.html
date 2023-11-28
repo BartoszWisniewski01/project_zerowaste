@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zero Waste - Registration Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Zero Waste</a>
+    </nav>
+</header>
+<main>
+    <div class="container">
+        <h1>Registration</h1>
+        <form th:action="@{/register}" method="post" th:object="${user}">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+                <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{getName}"></p>
+            </div>
+            <div class="form-group">
+                <label for="surname">Surname:</label>
+                <input type="text" class="form-control" id="surname" name="surname" required>
+                <p class="error" th:if="${#fields.hasErrors('surname')}" th:errors="*{getSurname}"></p>
+            </div>
+            <div class="form-group">
+                <label for="username">Login:</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+                <p class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+                <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+            </div>
+            <div class="form-group">
+                <label for="password">Email:</label>
+                <input type="password" class="form-control" id="email" name="email" required>
+                <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+            </div>
+            <div class="form-group">
+                <label for="role">Make account as:</label>
+                <select class="form-control" id="role" th:field="*{role}" required>
+                    <option value="ROLE_USER" th:selected="${user.role == 'ROLE_USER'}">Client</option>
+                    <option value="ROLE_SELLER" th:selected="${user.role == 'ROLE_SELLER'}">Seller</option>
+                </select>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary" style="background-color: #545454;">Register</button>
+        </form>
+    </div>
+</main>
+<footer>
+    <div class="container">
+        <div style="text-align: center;">
+            <a class="btn btn-primary" href="/landingpage" style="background-color: #545454; color: #fff;">Back</a>
+        </div>
+        <p>© 2023 Zero Waste.</p>
+    </div>
+</footer>
+</body>
+</html>

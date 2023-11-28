@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security%22%3E" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TODO List</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<header>
+  <div class="navigation">
+    <a class="btn btn-primary" href="/admin" style="background-color: #545454; color: #fff;" sec:authorize="hasRole('ROLE_ADMIN')">Administrator Panel</a>
+    <a class="btn btn-dark" href="/logout" style="background-color: #545454; color: #fff;">Log out</a>
+  </div>
+</header>
+<main>
+  <h1>Download our app</h1>
+</main>
+<footer>
+  <div class="container">
+    <p>© 2023 Zero Waste.</p>
+  </div>
+</footer>
+</body>
+</html>

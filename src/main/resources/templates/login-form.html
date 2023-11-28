@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zero Waste - Login Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Zero Waste</a>
+    </nav>
+</header>
+<main>
+    <div class="container">
+        <h1>Login</h1>
+        <form th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label for="username">Login:</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div th:if="${passwordError}" class="alert alert-dark error-message" role="alert">
+                <span th:text="${passwordError}"></span>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary" style="background-color: #545454;">Login</button>
+        </form>
+    </div>
+</main>
+<footer>
+    <div class="container">
+        <p>© 2023 Zero Waste.</p>
+    </div>
+</footer>
+</body>
+</html>

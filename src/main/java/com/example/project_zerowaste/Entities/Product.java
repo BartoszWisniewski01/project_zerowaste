@@ -2,6 +2,7 @@ package com.example.project_zerowaste.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.List;
 
 @Entity
 @Table (name = "Products")
@@ -21,4 +22,9 @@ public class Product {
     private String description;
     @Column(name = "price")
     private double price;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private List<Product_Package> product_package;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

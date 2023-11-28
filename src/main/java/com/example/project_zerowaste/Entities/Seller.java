@@ -3,6 +3,8 @@ package com.example.project_zerowaste.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table (name = "Sellers")
 @NoArgsConstructor
@@ -24,4 +26,6 @@ public class Seller {
     @OneToOne
     @JoinColumn(name = "address_id")
     private Address address;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "seller")
+    private List<User_Seller> user_seller;
 }
