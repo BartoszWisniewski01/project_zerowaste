@@ -27,7 +27,7 @@
             <tbody>
             <tr th:each="package : ${packages}">
                 <td th:text="${package.name}"></td>
-                <td th:text="${package.startDate}"></td>
+                <td th:text="${package.expiry_date}"></td>
                 <td>
                     <div class="action-buttons">
                         <a class="btn btn-primary" th:href="@{/packages/{id}/edit(id=${package.id})}" style="background-color: #545454; color: #fff;">Edit</a>

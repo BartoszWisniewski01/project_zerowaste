@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @Getter
+@Builder
 
 public class Seller {
     @Id

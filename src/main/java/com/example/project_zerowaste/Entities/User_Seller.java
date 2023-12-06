@@ -1,10 +1,7 @@
 package com.example.project_zerowaste.Entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table (name = "User_Seller")
@@ -12,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @Getter
+@Builder
+
 public class User_Seller {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
