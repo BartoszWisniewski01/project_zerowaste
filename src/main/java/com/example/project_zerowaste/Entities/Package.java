@@ -23,14 +23,14 @@ public class Package {
     @Column(name = "expiry_date")
     private Date expiry_date;
     @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
-    @ManyToOne
     @JoinColumn(name = "seller_id")
     private Seller seller;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @ManyToOne
+    @JoinColumn (name = "product_id")
+    private Product product;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pack")
     private List<Product_Package> product_package;
 }

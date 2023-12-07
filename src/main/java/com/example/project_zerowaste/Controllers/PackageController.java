@@ -57,7 +57,7 @@ public class PackageController {
                 model.addAttribute("errorMessage", exception.getMessage());
                 return "package-form";
             }
-            return "redirect:/packages";
+            return "redirect:/packages/all";
         }
     }
 
@@ -81,17 +81,13 @@ public class PackageController {
         }
         else {
             packageService.editPackage(id, updatedPackage);
-            return "redirect:/packages";
+            return "redirect:/packages/all";
         }
     }
 
     @GetMapping("/{id}/delete")
     public String deletePackage(@PathVariable("id") Long id) {
         packageService.deletePackageById(id);
-        return "redirect:/packages";
+        return "redirect:/packages/all";
     }
 }
-
-
-
-

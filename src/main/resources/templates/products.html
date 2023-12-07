@@ -14,7 +14,7 @@
 <main>
     <div class="container">
         <br>
-        <div style="text-align: center;"><h1>Products</h1></div>
+        <div style="text-align: center;"><h1>Your products</h1></div>
         <br>
         <table class="table">
             <thead>
@@ -22,7 +22,6 @@
                 <th>Name</th>
                 <th>Display Name</th>
                 <th>Price</th>
-                <th>Owner</th>
             </tr>
             </thead>
             <tbody>
@@ -30,7 +29,6 @@
                 <td th:text="${product.name}"></td>
                 <td th:text="${product.description}"></td>
                 <td th:text="${product.price}"></td>
-                <td th:text="${product.getUser().getUsername()}"></td>
                 <td>
                     <div class="action-buttons">
                         <a class="btn btn-primary" th:href="@{/products/{id}/edit(id=${product.id})}" style="background-color: #545454; color: #fff;">Edit</a>
@@ -46,7 +44,7 @@
     <div class="container">
         <div class="text-center mt-4">
             <a class="btn btn-primary" href="/products/add" style="background-color: #545454; color: #fff;" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')">Add new product </a>
-            <a class="btn btn-primary" href="/products" style="background-color: #545454; color: #fff;">Back</a>
+            <a class="btn btn-primary" href="/packages/all" style="background-color: #545454; color: #fff;">Back</a>
         </div>
         <br>
         <p>© 2023 Zero Waste.</p>

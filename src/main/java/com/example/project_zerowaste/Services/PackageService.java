@@ -1,7 +1,9 @@
 package com.example.project_zerowaste.Services;
 
+import com.example.project_zerowaste.Entities.Product_Package;
 import com.example.project_zerowaste.Repositories.PackageRepository;
 import com.example.project_zerowaste.Entities.Package;
+import com.example.project_zerowaste.Repositories.Product_PackageRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -10,11 +12,20 @@ import java.util.List;
 @AllArgsConstructor
 public class PackageService {
     private PackageRepository packageRepository;
+    private Product_PackageRepository productPackageRepository;
     private UserService userService;
 
     public void save(Package pack, String username) {
         pack.setUser(userService.findByUsername(username));
+
         packageRepository.save(pack);
+
+        Product_Package productPackage = Product_Package.builder()
+                .product(pack.getProduct())
+                .pack(pack)
+                .quantity(1)
+                .build();
+        productPackageRepository.save(productPackage);
     }
 
     public List<Package> findAll(String username) {

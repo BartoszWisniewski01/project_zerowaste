@@ -53,7 +53,7 @@ public class ProductController {
                 model.addAttribute("errorMessage", exception.getMessage());
                 return "product-form";
             }
-            return "redirect:/products";
+            return "redirect:/products/all";
         }
     }
 
@@ -77,16 +77,13 @@ public class ProductController {
         }
         else {
             productService.editProduct(id, updatedProduct);
-            return "redirect:/products";
+            return "redirect:/products/all";
         }
     }
 
     @GetMapping("/{id}/delete")
     public String deleteProduct(@PathVariable("id") Long id) {
         productService.deleteProductById(id);
-        return "redirect:/products";
+        return "redirect:/products/all";
     }
-
-
 }
-
