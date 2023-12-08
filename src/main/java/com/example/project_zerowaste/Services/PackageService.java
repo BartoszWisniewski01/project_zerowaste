@@ -1,9 +1,11 @@
 package com.example.project_zerowaste.Services;
 
 import com.example.project_zerowaste.Entities.Product_Package;
+import com.example.project_zerowaste.Entities.User;
 import com.example.project_zerowaste.Repositories.PackageRepository;
 import com.example.project_zerowaste.Entities.Package;
 import com.example.project_zerowaste.Repositories.Product_PackageRepository;
+import com.example.project_zerowaste.Repositories.User_SellerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -13,11 +15,13 @@ import java.util.List;
 public class PackageService {
     private PackageRepository packageRepository;
     private Product_PackageRepository productPackageRepository;
+    private User_SellerRepository userSellerRepository;
     private UserService userService;
 
     public void save(Package pack, String username) {
-        pack.setUser(userService.findByUsername(username));
-
+        User user = userService.findByUsername(username);
+        pack.setUser(user);
+        pack.setSeller(userSellerRepository.findSellerByUser(user));
         packageRepository.save(pack);
 
         Product_Package productPackage = Product_Package.builder()
@@ -44,10 +48,14 @@ public class PackageService {
     public void editPackage(Long id, Package updatedPackage) {
         Package pack = packageRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid package ID: " + id));
+        Product_Package productPackage = productPackageRepository.findByPackage(pack);
 
         pack.setName(updatedPackage.getName());
         pack.setExpiry_date(updatedPackage.getExpiry_date());
-
+        pack.setProduct(updatedPackage.getProduct());
         packageRepository.save(pack);
+
+        productPackage.setProduct(pack.getProduct());
+        productPackageRepository.save(productPackage);
     }
 }

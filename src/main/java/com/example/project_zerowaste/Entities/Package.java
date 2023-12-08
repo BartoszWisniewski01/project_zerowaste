@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.util.Date;
 import java.util.List;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table (name = "Packages")
@@ -21,6 +22,7 @@ public class Package {
     @Column(name = "name")
     private String name;
     @Column(name = "expiry_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date expiry_date;
     @ManyToOne
     @JoinColumn(name = "seller_id")

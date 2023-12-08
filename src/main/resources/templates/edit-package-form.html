@@ -21,35 +21,28 @@
             <div class="form-group">
                 <label for="name">Name:</label>
                 <input type="text" class="form-control" id="name" th:field="*{name}" required>
-                <p class="alert alert-dark error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{getName()}"></p>
+                <p class="alert alert-dark error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{getName}"></p>
             </div>
 
             <div class="form-group">
                 <label for="expiry_date">Expiry Date:</label>
-                <textarea class="form-control content-field" id="expiry_date" th:field="*{expiry_date}" required></textarea>
-                <p class="alert alert-dark error-message" th:if="${#fields.hasErrors('expiry_date')}" th:errors="*{getExpiry_date()}"></p>
+                <input type="date" class="form-control" id="expiry_date" name="expiry_date" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+                <p class="alert alert-dark error-message" th:if="${#fields.hasErrors('expiry_date')}" th:errors="*{getExpiry_date}"></p>
             </div>
             <div class="form-group">
-                <label for="product">Status:</label>
-                <select class="form-control" id="product" th:field="*{}" required>
-                    <option th:each="product : ${products}"
-                            th:text="${product.name}"
-                            th:value="${product.id}">
+                <label for="product">Product:</label>
+                <select class="form-control" id="product" th:field="*{product.id}" required>
+                    <option th:each="prod : ${products}"
+                            th:text="${prod.name}"
+                            th:value="${prod.id}">
                     </option>
                 </select>
+                <p class="alert alert-dark error-message" th:if="${#fields.hasErrors('product.id')}" th:errors="*{product.id}"></p>
             </div>
-            <div class="form-group">
-                <label for="products">Products:</label>
-                <select class="form-control" id="products" name="selectedProducts" th:field="*{}" required multiple>
-                    <option th:each="product : ${products}"
-                            th:text="${product.name}"
-                            th:value="${product.id}">
-                    </option>
-                </select>
-            </div>
+
             <br>
             <button type="submit" class="btn btn-primary" style="background-color: #545454;">Save</button>
-            <a class="btn btn-primary" href="/packages" style="background-color: #545454; color: #fff;">Back</a>
+            <a class="btn btn-primary" href="/packages/all" style="background-color: #545454; color: #fff;">Back</a>
         </form>
     </div>
 </main>

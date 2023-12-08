@@ -10,4 +10,3 @@ public interface SellerRepository extends JpaRepository<Seller, Long> {
     @Override
     void deleteById(Long aLong);
 }
-
