@@ -22,7 +22,7 @@ public class Product {
     private String description;
     @Column(name = "price")
     private double price;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
     private List<Product_Package> product_package;
     @ManyToOne
     @JoinColumn(name = "user_id")

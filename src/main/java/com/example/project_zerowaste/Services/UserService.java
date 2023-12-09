@@ -31,8 +31,6 @@ public class UserService {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         user.setAccount_status("ACTIVE");
-        user.setHome_address(addressRepository.getById(0));
-
         if (Objects.equals(user.getRole(), "ROLE_SELLER")){
             Seller seller = Seller.builder()
                     .address(user.getHome_address())

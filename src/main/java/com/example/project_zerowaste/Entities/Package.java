@@ -33,6 +33,6 @@ public class Package {
     @ManyToOne
     @JoinColumn (name = "product_id")
     private Product product;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pack")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pack", orphanRemoval = true)
     private List<Product_Package> product_package;
 }

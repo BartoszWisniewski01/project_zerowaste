@@ -17,28 +17,48 @@
         <form th:action="@{/register}" method="post" th:object="${user}">
             <div class="form-group">
                 <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <input type="text" class="form-control" id="name" th:field = "*{name}" name="name" required>
                 <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{getName}"></p>
             </div>
             <div class="form-group">
                 <label for="surname">Surname:</label>
-                <input type="text" class="form-control" id="surname" name="surname" required>
+                <input type="text" class="form-control" id="surname" th:field = "*{surname}" name="surname" required>
                 <p class="error" th:if="${#fields.hasErrors('surname')}" th:errors="*{getSurname}"></p>
             </div>
             <div class="form-group">
                 <label for="username">Login:</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+                <input type="text" class="form-control" id="username" th:field = "*{username}" name="username" required>
                 <p class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <input type="password" class="form-control" id="password" th:field = "*{password}" name="password" required>
                 <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
             </div>
             <div class="form-group">
                 <label for="password">Email:</label>
-                <input type="password" class="form-control" id="email" name="email" required>
+                <input type="password" class="form-control" id="email" th:field = "*{email}" name="email" required>
                 <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+            </div>
+            <div class="form-group">
+                <label for="address.city">City:</label>
+                <input type="text" class="form-control" id="address.city" th:field = "*{home_address.city}" name="address.city" required>
+            </div>
+            <div class="form-group">
+                <label for="address.streetName">Street Name:</label>
+                <input type="text" class="form-control" id="address.streetName" th:field = "*{home_address.street_name}" name="address.street_name" required>
+            </div>
+            <div class="form-group">
+                <label for="address.buildingNumber">Building Number:</label>
+                <input type="number" class="form-control" id="address.buildingNumber" th:field = "*{home_address.building_number}" name="address.number" required>
+            </div>
+            <div class="form-group">
+                <label for="address.apartmentNumber">Apartment Number:</label>
+                <input type="number" class="form-control" id="address.apartmentNumber" th:field = "*{home_address.apartment_number}" name="address.apartment_number" required>
+            </div>
+            <div class="form-group">
+                <label for="address.postcode">Postcode:</label>
+                <input type="number" class="form-control" id="address.postcode" th:field = "*{home_address.postcode}" name="address.postcode" required>
             </div>
             <div class="form-group">
                 <label for="role">Make account as:</label>

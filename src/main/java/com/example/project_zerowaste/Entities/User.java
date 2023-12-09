@@ -21,7 +21,7 @@ public class User implements UserDetails {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn (name = "home_address")
     private Address home_address;
     @Column(name = "name")

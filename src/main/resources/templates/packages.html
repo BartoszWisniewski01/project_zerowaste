@@ -43,7 +43,7 @@
     <div class="container">
         <div class="text-center mt-4">
             <a class="btn btn-primary" href="/products/all" style="background-color: #545454; color: #fff;" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_SELLER')">Product List </a>
-            <a class="btn btn-primary" href="/packages/add" style="background-color: #545454; color: #fff;" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_SELLER')">Add new package </a>
+            <a class="btn btn-primary" href="/packages/add" style="background-color: #545454; color: #fff;" sec:authorize="hasAnyRole('ROLE_SELLER')">Add new package </a>
             <a class="btn btn-primary" href="/logout" style="background-color: #545454; color: #fff;">Log out</a>
         </div>
         <br>

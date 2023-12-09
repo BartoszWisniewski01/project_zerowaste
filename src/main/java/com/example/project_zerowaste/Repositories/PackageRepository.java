@@ -10,4 +10,5 @@ public interface PackageRepository extends JpaRepository<Package, Long> {
     List<Package> findAllByUserUsername(String username);
     @Override
     void deleteById(Long aLong);
+    List<java.lang.Package> findAllByProduct_Id(Long id);
 }

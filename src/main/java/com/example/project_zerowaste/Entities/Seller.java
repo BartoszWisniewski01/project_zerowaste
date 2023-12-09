@@ -24,7 +24,7 @@ public class Seller {
     private String login;
     @Column(name = "password")
     private String password;
-    @OneToOne
+    @OneToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "seller")
