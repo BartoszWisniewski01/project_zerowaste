@@ -1,7 +1,9 @@
 package com.example.project_zerowaste.Services;
 
+import com.example.project_zerowaste.Entities.Order;
 import com.example.project_zerowaste.Entities.Product_Package;
 import com.example.project_zerowaste.Entities.User;
+import com.example.project_zerowaste.Repositories.OrderRepository;
 import com.example.project_zerowaste.Repositories.PackageRepository;
 import com.example.project_zerowaste.Entities.Package;
 import com.example.project_zerowaste.Repositories.Product_PackageRepository;
@@ -16,6 +18,7 @@ public class PackageService {
     private PackageRepository packageRepository;
     private Product_PackageRepository productPackageRepository;
     private User_SellerRepository userSellerRepository;
+    private OrderRepository orderRepository;
     private UserService userService;
 
     public void save(Package pack, String username) {
@@ -37,6 +40,8 @@ public class PackageService {
     }
 
     public void deletePackageById(Long id) {
+        List<Order> orders = orderRepository.findAllByPack(packageRepository.findById(id));
+        orderRepository.deleteAll(orders);
         packageRepository.deleteById(id);
     }
 

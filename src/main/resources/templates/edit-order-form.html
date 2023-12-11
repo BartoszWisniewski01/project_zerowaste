@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Zero Waste. Order add form.</title>
+  <title>Order Edition</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
@@ -13,8 +13,11 @@
 </header>
 <main>
   <div class="container">
-    <h1>Add order.</h1>
-    <form th:action="@{/orders/add}" method="post" th:object="${order}">
+    <h1>Order Edition</h1>
+
+    <form action="#" method="post"  th:object="${order}">
+      <input type="hidden" th:field="${order.id}" />
+
       <div class="form-group">
         <label for="status">Status:</label>
         <input type="text" class="form-control" id="status" name="status" minlength="0" maxlength="100" th:field="*{status}" required>
@@ -26,11 +29,11 @@
       </div>
       <div class="form-group">
         <label for="pack">Packages:</label>
-        <select class="form-control selectpicker" th:field="*{pack}" id="pack" required>
+        <select class="form-control" id="pack" name="pack" required>
           <option value="">Select a package</option>
-          <option th:each="pack : ${packages}"
-                  th:text="${pack.name}"
-                  th:value="${pack.id}">
+          <option th:each="bag : ${packages}"
+                  th:text="${bag.name}"
+                  th:value="${bag.id}">
           </option>
         </select>
       </div>
@@ -54,15 +57,15 @@
         <label for="address.postcode">Postcode:</label>
         <input type="number" class="form-control" id="address.postcode" th:field = "*{address.postcode}" name="address.postcode" required>
       </div>
+
       <br>
-      <button type="submit" class="btn btn-primary" style="background-color: #545454;">Add order</button>
+      <button type="submit" class="btn btn-primary" style="background-color: #545454;">Save</button>
       <a class="btn btn-primary" href="/orders/all" style="background-color: #545454; color: #fff;">Back</a>
     </form>
   </div>
 </main>
 <footer>
   <div class="container">
-    <br>
     <p>© 2023 Zero Waste.</p>
   </div>
 </footer>
