@@ -30,7 +30,9 @@ public class ProductService {
     public List<Product> findAll(String username) {
         return productRepository.findAllByUserUsername(username);
     }
-
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
     public void deleteProductById(Long id) {
         List<Product_Package> productPackages = productPackageRepository.findAllByProduct_Id(id);
         for (Product_Package productPackage : productPackages) {

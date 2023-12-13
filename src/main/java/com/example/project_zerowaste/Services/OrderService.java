@@ -18,15 +18,13 @@ public class OrderService {
     public void save(Order order, String username) {
         User user = userService.findByUsername(username);
         order.setUser(user);
-        order.setSeller(userSellerRepository.findSellerByUser(user));
         orderRepository.save(order);
     }
 
     public List<Order> findAll(String username) {
         return orderRepository.findAllByUserUsername(username);
     }
-
-    public void deletePackageById(Long id) {
+    public void deleteOrderById(Long id) {
         orderRepository.deleteById(id);
     }
 
@@ -35,7 +33,7 @@ public class OrderService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid order ID: " + id));
     }
 
-    public void editPackage(Long id, Order updatedOrder) {
+    public void editOrder(Long id, Order updatedOrder) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid package ID: " + id));
 

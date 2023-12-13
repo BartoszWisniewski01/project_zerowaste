@@ -1,8 +1,11 @@
 package com.example.project_zerowaste.Controllers;
 
 import com.example.project_zerowaste.Configuration.GlobalException;
+import com.example.project_zerowaste.Entities.Package;
 import com.example.project_zerowaste.Entities.Product;
+import com.example.project_zerowaste.Entities.User;
 import com.example.project_zerowaste.Services.ProductService;
+import com.example.project_zerowaste.Services.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,18 +14,26 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @AllArgsConstructor
 @RequestMapping("/products")
 public class ProductController {
     private ProductService productService;
+    private UserService userService;
     @GetMapping("/all")
     public String getAll(
             Model model,
             Principal principal
     ) {
-        List<Product> products = productService.findAll(principal.getName());
+        User user = userService.findByUsername(principal.getName());
+        List <Product> products;
+
+        if (Objects.equals(user.getRole(), "ROLE_SELLER"))
+            products = productService.findAll(principal.getName());
+        else
+            products = productService.findAll();
 
         model.addAttribute("products", products);
         return "products";

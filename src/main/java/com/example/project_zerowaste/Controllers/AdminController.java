@@ -15,12 +15,12 @@ public class AdminController {
     private UserService userService;
     @GetMapping("")
     public String basic(){
-        return "redirect:/admin/users";
+        return "admin-view";
     }
     @GetMapping("/users")
     public String getUsers(Model model) {
         model.addAttribute("users", userService.findAll());
-        return "admin-view";
+        return "admin-accounts";
     }
 
     @GetMapping("/{id}/edit")

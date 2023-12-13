@@ -38,7 +38,9 @@ public class PackageService {
     public List<Package> findAll(String username) {
         return packageRepository.findAllByUserUsername(username);
     }
-
+    public List<Package> findAll() {
+        return packageRepository.findAll();
+    }
     public void deletePackageById(Long id) {
         List<Order> orders = orderRepository.findAllByPack(packageRepository.findById(id));
         orderRepository.deleteAll(orders);

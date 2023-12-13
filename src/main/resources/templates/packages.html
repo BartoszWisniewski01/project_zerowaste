@@ -10,6 +10,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Zero Waste</a>
         <a class="btn btn-primary" href="/admin" style="background-color: #545454; color: #fff;" sec:authorize="hasRole('ROLE_ADMIN')">Administrator Panel</a>
+        <a class="btn btn-primary" href="/logout" style="background-color: #545454; color: #fff;">Log out</a>
     </nav>
 </header>
 <main>
@@ -30,8 +31,8 @@
                 <td th:text="${#dates.format(package.expiry_date, 'yyyy-MM-dd')}"></td>
                 <td>
                     <div class="action-buttons">
-                        <a class="btn btn-primary" th:href="@{/packages/{id}/edit(id=${package.id})}" style="background-color: #545454; color: #fff;">Edit</a>
-                        <a class="btn btn-danger" th:href="@{/packages/{id}/delete(id=${package.id})}" style="background-color: #dc3545; color: #fff;">Delete</a>
+                        <a class="btn btn-primary" th:href="@{/packages/{id}/edit(id=${package.id})}" style="background-color: #545454; color: #fff;" sec:authorize="hasAnyRole('ROLE_SELLER')" >Edit</a>
+                        <a class="btn btn-danger" th:href="@{/packages/{id}/delete(id=${package.id})}" style="background-color: #dc3545; color: #fff;" sec:authorize="hasAnyRole('ROLE_SELLER')" >Delete</a>
                     </div>
                 </td>
             </tr>
@@ -42,8 +43,8 @@
 <footer>
     <div class="container">
         <div class="text-center mt-4">
-            <a class="btn btn-primary" href="/orders/all" style="background-color: #545454; color: #fff;" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_SELLER')">Make Order</a>
-            <a class="btn btn-primary" href="/products/all" style="background-color: #545454; color: #fff;" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_SELLER')">Product List </a>
+            <a class="btn btn-primary" href="/orders/all" style="background-color: #545454; color: #fff;" sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')">Orders</a>
+            <a class="btn btn-primary" href="/products/all" style="background-color: #545454; color: #fff;" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_SELLER','ROLE_USER')">Product List </a>
             <a class="btn btn-primary" href="/packages/add" style="background-color: #545454; color: #fff;" sec:authorize="hasAnyRole('ROLE_SELLER')">Add new package </a>
             <a class="btn btn-primary" href="/logout" style="background-color: #545454; color: #fff;">Log out</a>
         </div>

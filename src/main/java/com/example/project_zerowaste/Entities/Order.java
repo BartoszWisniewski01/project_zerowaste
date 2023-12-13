@@ -32,7 +32,4 @@ public class Order {
     @ManyToOne
     @JoinColumn (name = "package_id")
     private Package pack;
-    @ManyToOne
-    @JoinColumn (name = "seller_id")
-    private Seller seller;
 }

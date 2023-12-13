@@ -10,6 +10,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Zero Waste</a>
     <a class="btn btn-primary" href="/admin" style="background-color: #545454; color: #fff;" sec:authorize="hasRole('ROLE_ADMIN')">Administrator Panel</a>
+    <a class="btn btn-primary" href="/logout" style="background-color: #545454; color: #fff;">Log out</a>
   </nav>
 </header>
 <main>
@@ -22,6 +23,7 @@
       <tr>
         <th>Number of Order</th>
         <th>Order Date</th>
+        <th>Package</th>
         <th>Status</th>
       </tr>
       </thead>
@@ -29,11 +31,13 @@
       <tr th:each="order : ${orders}">
         <td th:text="${order.id}"></td>
         <td th:text="${#dates.format(order.order_date, 'yyyy-MM-dd')}"></td>
+        <td th:text="${order.getPack().name}"></td>
         <td th:text="${order.status}"></td>
         <td>
           <div class="action-buttons">
-            <a class="btn btn-primary" th:href="@{/orders/{id}/edit(id=${order.id})}" style="background-color: #545454; color: #fff;">Edit</a>
-            <a class="btn btn-danger" th:href="@{/orders/{id}/delete(id=${order.id})}" style="background-color: #dc3545; color: #fff;">Delete</a>
+            <a class="btn btn-primary" th:href="@{/orders/{id}/edit(id=${order.id})}" style="background-color: #545454; color: #fff;" sec:authorize="hasAnyRole('ROLE_USER')" >Edit</a>
+            <a class="btn btn-primary" th:href="@{/orders/{id}/delete(id=${order.id})}" style="background-color: #dc3545; color: #fff;" sec:authorize="hasAnyRole('ROLE_USER')" >Delete</a>
+            <a class="btn btn-danger" th:href="@{/tickets/{id}/add(id=${order.id})}" style="background-color: #dc3545; color: #fff;" sec:authorize="hasAnyRole('ROLE_USER')" >Ticket</a>
           </div>
         </td>
       </tr>
@@ -45,8 +49,8 @@
   <div class="container">
     <div class="text-center mt-4">
       <a class="btn btn-primary" href="/packages/all" style="background-color: #545454; color: #fff;" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_SELLER')">Packages List </a>
-      <a class="btn btn-primary" href="/orders/add" style="background-color: #545454; color: #fff;" sec:authorize="hasAnyRole('ROLE_SELLER')">Add new order </a>
-      <a class="btn btn-primary" href="/logout" style="background-color: #545454; color: #fff;">Log out</a>
+      <a class="btn btn-primary" href="/orders/add" style="background-color: #545454; color: #fff;" sec:authorize="hasAnyRole('ROLE_USER')">Add new order </a>
+      <a class="btn btn-primary" href="/packages/all" style="background-color: #545454; color: #fff;">Back</a>
     </div>
     <br>
     <p>© 2023 Zero Waste.</p>

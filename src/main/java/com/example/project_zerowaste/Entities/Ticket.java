@@ -24,5 +24,8 @@ public class Ticket {
     @OneToOne
     @JoinColumn(name = "order_id")
     private Order order;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
 

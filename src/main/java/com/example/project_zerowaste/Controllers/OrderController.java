@@ -33,14 +33,14 @@ public class OrderController {
     }
 
     @GetMapping("/add")
-    public String addPackageForm(Model model, Principal principal) {
+    public String addOrderForm(Model model, Principal principal) {
         model.addAttribute("order", new Order());
-        model.addAttribute("packages", packageService.findAll(principal.getName()));
+        model.addAttribute("packages", packageService.findAll());
         return "order-form";
     }
 
     @PostMapping("/add")
-    public String addPackage(
+    public String addOrder(
             @ModelAttribute ("order") @Valid Order order,
             BindingResult bindingResult,
             Model model,
@@ -62,7 +62,7 @@ public class OrderController {
     }
 
     @GetMapping("/{id}/edit")
-    public String editPackageForm(@PathVariable("id") Long id, Model model, Principal principal) {
+    public String editOrderForm(@PathVariable("id") Long id, Model model, Principal principal) {
         Order order = orderService.findById(id);
         model.addAttribute("order", order);
         model.addAttribute("packages", packageService.findAll(principal.getName()));
@@ -70,7 +70,7 @@ public class OrderController {
     }
 
     @PostMapping("/{id}/edit")
-    public String editPackage(
+    public String editOrder(
             @PathVariable("id") Long id,
             @ModelAttribute("order") @Valid Order updatedOrder,
             BindingResult bindingResult
@@ -80,14 +80,14 @@ public class OrderController {
             return "edit-order-form";
         }
         else {
-            orderService.editPackage(id, updatedOrder);
+            orderService.editOrder(id, updatedOrder);
             return "redirect:/orders/all";
         }
     }
 
     @GetMapping("/{id}/delete")
-    public String deletePackage(@PathVariable("id") Long id) {
-        orderService.deletePackageById(id);
+    public String deleteOrder(@PathVariable("id") Long id) {
+        orderService.deleteOrderById(id);
         return "redirect:/orders/all";
     }
 }
