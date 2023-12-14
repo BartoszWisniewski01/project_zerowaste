@@ -24,7 +24,7 @@ public class TicketController {
             Model model,
             Principal principal
     ) {
-        List<Ticket> tickets = ticketService.findAll(principal.getName());
+        List<Ticket> tickets = ticketService.findAll();
 
         model.addAttribute("tickets", tickets);
         return "tickets";

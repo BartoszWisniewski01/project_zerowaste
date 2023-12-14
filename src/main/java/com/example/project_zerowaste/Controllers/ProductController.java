@@ -1,7 +1,6 @@
 package com.example.project_zerowaste.Controllers;
 
 import com.example.project_zerowaste.Configuration.GlobalException;
-import com.example.project_zerowaste.Entities.Package;
 import com.example.project_zerowaste.Entities.Product;
 import com.example.project_zerowaste.Entities.User;
 import com.example.project_zerowaste.Services.ProductService;

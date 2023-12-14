@@ -21,6 +21,11 @@ public class OrderController {
     private OrderService orderService;
     private PackageService packageService;
 
+    @GetMapping("")
+    public String checkReviews() {
+        return "reviews";
+    }
+
     @GetMapping("/all")
     public String getAll(
             Model model,

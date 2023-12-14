@@ -1,7 +1,6 @@
 package com.example.project_zerowaste.Controllers;
 
 import com.example.project_zerowaste.Configuration.GlobalException;
-import com.example.project_zerowaste.Entities.Order;
 import com.example.project_zerowaste.Entities.User;
 import com.example.project_zerowaste.Services.PackageService;
 import com.example.project_zerowaste.Services.ProductService;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
-
 import com.example.project_zerowaste.Entities.Package;
 
 @Controller

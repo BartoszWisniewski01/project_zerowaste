@@ -24,6 +24,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
+                <th>Restaurant</th>
             </tr>
             </thead>
             <tbody>
@@ -31,10 +32,12 @@
                 <td th:text="${product.name}"></td>
                 <td th:text="${product.description}"></td>
                 <td th:text="${product.price}"></td>
+                <td th:text="${product.getUser().name}"></td>
                 <td>
                     <div class="action-buttons">
                         <a class="btn btn-primary" th:href="@{/products/{id}/edit(id=${product.id})}" style="background-color: #545454; color: #fff;" sec:authorize="hasAnyRole('ROLE_SELLER')" >Edit</a>
                         <a class="btn btn-danger" th:href="@{/products/{id}/delete(id=${product.id})}" style="background-color: #dc3545; color: #fff;" sec:authorize="hasAnyRole('ROLE_SELLER')" >Delete</a>
+                        <a class="btn btn-danger" th:href="@{/product-review/{id}/add(id=${product.id})}" style="background-color: #dc3545; color: #fff;" sec:authorize="hasAnyRole('ROLE_USER')" >Rate Product</a>
                     </div>
                 </td>
             </tr>
@@ -46,7 +49,7 @@
     <div class="container">
         <div class="text-center mt-4">
             <a class="btn btn-primary" href="/products/add" style="background-color: #545454; color: #fff;" sec:authorize="hasAnyRole('ROLE_SELLER')">Add new product </a>
-            <a class="btn btn-primary" href="/packages/all" style="background-color: #545454; color: #fff;">Back</a>
+            <a class="btn btn-primary" href="/mainpage" style="background-color: #545454; color: #fff;">Back</a>
         </div>
         <br>
         <p>© 2023 Zero Waste.</p>

@@ -23,6 +23,7 @@
         <th>Type od ticket</th>
         <th>Comment</th>
         <th>Owner</th>
+        <th>Order</th>
       </tr>
       </thead>
       <tbody>
@@ -31,6 +32,7 @@
         <td th:text="${ticket.type}"></td>
         <td th:text="${ticket.comment}"></td>
         <td th:text="${ticket.getUser().getUsername()}"></td>
+        <td th:text="${ticket.getOrder().getId()}"></td>
         <td>
           <div class="action-buttons">
             <a class="btn btn-primary" th:href="@{/tickets/{id}/edit(id=${ticket.id})}" style="background-color: #545454; color: #fff;">Edit</a>

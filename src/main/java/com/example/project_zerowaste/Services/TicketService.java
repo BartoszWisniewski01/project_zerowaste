@@ -25,6 +25,10 @@ public class TicketService {
     public List<Ticket> findAll(String username) {
         return ticketRepository.findAllByUserUsername(username);
     }
+
+    public List<Ticket> findAll() {
+        return ticketRepository.findAll();
+    }
     public void deleteTicketById(Long id) {
         ticketRepository.deleteById(id);
     }
