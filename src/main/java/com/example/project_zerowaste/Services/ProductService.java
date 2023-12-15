@@ -17,6 +17,7 @@ public class ProductService {
     private TicketRepository ticketRepository;
     private Product_PackageRepository productPackageRepository;
     private Product_ReviewRepository productReviewRepository;
+    private NotificationRepository notificationRepository;
     private UserService userService;
 
     public void save(Product product, String username) {
@@ -34,11 +35,7 @@ public class ProductService {
         for (Product_Package productPackage : productPackages) {
             Package pack = productPackage.getPack();
             List<Order> orders = orderRepository.findAllByPack(Optional.ofNullable(pack));
-            for (Order order : orders) {
-                List<Ticket> tickets = ticketRepository.findAllByOrder(order);
-                ticketRepository.deleteAll(tickets);
-            }
-            orderRepository.deleteAll(orders);
+            deleteTicketsNotifications(orders, notificationRepository, ticketRepository, orderRepository);
             assert pack != null;
             productPackageRepository.deleteAll(pack.getProduct_package());
             packageRepository.delete(pack);
@@ -47,6 +44,16 @@ public class ProductService {
         List <Product_Review> productReviewList = productReviewRepository.findAllByProduct(product);
         productReviewRepository.deleteAll(productReviewList);
         productRepository.deleteById(id);
+    }
+
+    static void deleteTicketsNotifications(List<Order> orders, NotificationRepository notificationRepository, TicketRepository ticketRepository, OrderRepository orderRepository) {
+        for (Order order : orders) {
+            List<Notification> notifications = notificationRepository.findAllByOrder(Optional.ofNullable(order));
+            notificationRepository.deleteAll(notifications);
+            List<Ticket> tickets = ticketRepository.findAllByOrder(order);
+            ticketRepository.deleteAll(tickets);
+        }
+        orderRepository.deleteAll(orders);
     }
 
     public Product findById(Long id){

@@ -23,6 +23,7 @@
             <tr>
                 <th>Name</th>
                 <th>Expiry Date</th>
+                <th>Product</th>
                 <th>Restaurant</th>
             </tr>
             </thead>
@@ -30,6 +31,7 @@
             <tr th:each="package : ${packages}">
                 <td th:text="${package.name}"></td>
                 <td th:text="${#dates.format(package.expiry_date, 'yyyy-MM-dd')}"></td>
+                <td th:text="${package.product.name}"></td>
                 <td th:text="${package.getSeller().name}"></td>
                 <td>
                     <div class="action-buttons">

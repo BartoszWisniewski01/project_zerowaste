@@ -16,7 +16,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @AllArgsConstructor
 @EnableWebSecurity
 public class SpringSecurity {
-
     private ApplicationUserDetailsService userDetailsService;
 
     @Bean
@@ -28,13 +27,15 @@ public class SpringSecurity {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
-                        authorize.requestMatchers("/**","/register", "/register/**", "/login", "/webjars/**").permitAll()
-                                .requestMatchers("/products", "products/**", "/packages", "/packages/**").hasAnyRole("USER", "ADMIN", "SELLER")
-                                .requestMatchers("/admin", "/admin/**").hasRole("ADMIN")
+                        authorize.requestMatchers("/**","/register", "/register/**", "/login","/login/**").permitAll()
+                                .requestMatchers("/products/all", "/packages/all", "/orders/all","/notifications/all","/mainpage").hasAnyRole("USER", "ADMIN", "SELLER")
+                                .requestMatchers("/products/**", "/packages/**").hasAnyRole("SELLER")
+                                .requestMatchers("/product-review/**", "/seller-review/**", "/orders/**", "/tickets/*/add" ).hasAnyRole("USER")
+                                .requestMatchers("/admin", "/admin/**","/tickets/**").hasRole("ADMIN")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
-                                .defaultSuccessUrl("/mainpage")
+                                .defaultSuccessUrl("/notifications/all")
                                 .permitAll()
                 ).logout(
                         logout -> logout

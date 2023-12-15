@@ -28,7 +28,6 @@ public class User implements UserDetails {
     @NotBlank(message = "Name cannot be empty.")
     private String name;
     @Column(name = "surname")
-    @NotBlank(message = "Surname cannot be empty.")
     private String surname;
     @Column(name = "email", unique = true)
     @NotBlank(message = "Email cannot be empty.")

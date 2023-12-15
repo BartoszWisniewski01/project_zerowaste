@@ -21,8 +21,8 @@
                 <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{getName}"></p>
             </div>
             <div class="form-group">
-                <label for="surname">Surname:</label>
-                <input type="text" class="form-control" id="surname" th:field = "*{surname}" name="surname" required>
+                <label for="surname">Surname: (leave blank if registering a seller)</label>
+                <input type="text" class="form-control" id="surname" th:field = "*{surname}" name="surname">
                 <p class="error" th:if="${#fields.hasErrors('surname')}" th:errors="*{getSurname}"></p>
             </div>
             <div class="form-group">
@@ -36,8 +36,8 @@
                 <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
             </div>
             <div class="form-group">
-                <label for="password">Email:</label>
-                <input type="password" class="form-control" id="email" th:field = "*{email}" name="email" required>
+                <label for="email">Email:</label>
+                <input type="text" class="form-control" id="email" th:field = "*{email}" name="email" required>
                 <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
             </div>
             <div class="form-group">

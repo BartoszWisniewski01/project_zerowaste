@@ -6,6 +6,7 @@ import com.example.project_zerowaste.Repositories.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -15,6 +16,7 @@ public class PackageService {
     private User_SellerRepository userSellerRepository;
     private TicketRepository ticketRepository;
     private OrderRepository orderRepository;
+    private NotificationRepository notificationRepository;
     private UserService userService;
 
     public void save(Package pack, String username) {
@@ -39,11 +41,7 @@ public class PackageService {
     }
     public void deletePackageById(Long id) {
         List<Order> orders = orderRepository.findAllByPack(packageRepository.findById(id));
-        for (Order order : orders) {
-            List<Ticket> tickets = ticketRepository.findAllByOrder(order);
-            ticketRepository.deleteAll(tickets);
-        }
-        orderRepository.deleteAll(orders);
+        ProductService.deleteTicketsNotifications(orders, notificationRepository, ticketRepository, orderRepository);
         packageRepository.deleteById(id);
     }
 

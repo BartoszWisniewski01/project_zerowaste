@@ -2,8 +2,11 @@ package com.example.project_zerowaste.Controllers;
 
 import com.example.project_zerowaste.Configuration.GlobalException;
 import com.example.project_zerowaste.Entities.Order;
+import com.example.project_zerowaste.Entities.Package;
+import com.example.project_zerowaste.Entities.User;
 import com.example.project_zerowaste.Services.OrderService;
 import com.example.project_zerowaste.Services.PackageService;
+import com.example.project_zerowaste.Services.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/orders")
@@ -19,6 +23,7 @@ import java.util.List;
 
 public class OrderController {
     private OrderService orderService;
+    private UserService userService;
     private PackageService packageService;
 
     @GetMapping("")
@@ -31,14 +36,18 @@ public class OrderController {
             Model model,
             Principal principal
     ) {
-        List<Order> orders = orderService.findAll(principal.getName());
-
+        User user = userService.findByUsername(principal.getName());
+        List <Order> orders;
+        if (Objects.equals(user.getRole(), "ROLE_USER"))
+            orders = orderService.findAll(principal.getName());
+        else
+            orders = orderService.findAll();
         model.addAttribute("orders", orders);
         return "orders";
     }
 
     @GetMapping("/add")
-    public String addOrderForm(Model model, Principal principal) {
+    public String addOrderForm(Model model) {
         model.addAttribute("order", new Order());
         model.addAttribute("packages", packageService.findAll());
         return "order-form";
@@ -67,10 +76,10 @@ public class OrderController {
     }
 
     @GetMapping("/{id}/edit")
-    public String editOrderForm(@PathVariable("id") Long id, Model model, Principal principal) {
+    public String editOrderForm(@PathVariable("id") Long id, Model model) {
         Order order = orderService.findById(id);
         model.addAttribute("order", order);
-        model.addAttribute("packages", packageService.findAll(principal.getName()));
+        model.addAttribute("packages", packageService.findAll());
         return "edit-order-form";
     }
 

@@ -19,23 +19,22 @@
     <table class="table">
       <thead>
       <tr>
+        <th>Submitter</th>
         <th>Name</th>
         <th>Type od ticket</th>
         <th>Comment</th>
-        <th>Owner</th>
         <th>Order</th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="ticket : ${tickets}">
+        <td th:text="${ticket.getUser().getUsername()}"></td>
         <td th:text="${ticket.title}"></td>
         <td th:text="${ticket.type}"></td>
         <td th:text="${ticket.comment}"></td>
-        <td th:text="${ticket.getUser().getUsername()}"></td>
         <td th:text="${ticket.getOrder().getId()}"></td>
         <td>
           <div class="action-buttons">
-            <a class="btn btn-primary" th:href="@{/tickets/{id}/edit(id=${ticket.id})}" style="background-color: #545454; color: #fff;">Edit</a>
             <a class="btn btn-danger" th:href="@{/tickets/{id}/delete(id=${ticket.id})}" style="background-color: #dc3545; color: #fff;">Delete</a>
           </div>
         </td>

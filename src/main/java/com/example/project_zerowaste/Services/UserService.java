@@ -3,7 +3,6 @@ package com.example.project_zerowaste.Services;
 import com.example.project_zerowaste.Entities.User;
 import com.example.project_zerowaste.Entities.Seller;
 import com.example.project_zerowaste.Entities.User_Seller;
-import com.example.project_zerowaste.Repositories.AddressRepository;
 import com.example.project_zerowaste.Repositories.SellerRepository;
 import com.example.project_zerowaste.Repositories.UserRepository;
 import com.example.project_zerowaste.Repositories.User_SellerRepository;
@@ -21,7 +20,6 @@ public class UserService {
     PasswordEncoder passwordEncoder;
     SellerRepository sellerRepository;
     User_SellerRepository user_sellerRepository;
-    AddressRepository addressRepository;
 
     @Builder
     public void save(User user) {
@@ -66,8 +64,9 @@ public class UserService {
 
     public void editUser(Long id, User updatedUser) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid task ID: " + id));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + id));
         user.setRole(updatedUser.getRole());
+        user.setAccount_status(updatedUser.getAccount_status());
         userRepository.save(user);
     }
 

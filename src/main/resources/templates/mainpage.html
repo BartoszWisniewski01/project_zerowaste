@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <title>Zero Waste</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    /* Add this style to remove bullets from the list items */
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+  </style>
 </head>
 <body>
 <header>
@@ -15,6 +22,15 @@
 </header>
 <main>
   <h1><div style="text-align: center;">Main page</div></h1>
+  <div th:if="${notifications}">
+    <center><ul>
+      <li th:each="notification : ${notifications}">
+        <br>
+        <b><p th:text="${notification.getTitle()}"></p></b>
+        <p th:text="${notification.getContent()}"></p>
+      </li>
+    </ul></center>
+  </div>
 </main>
 <footer>
   <div class="container">

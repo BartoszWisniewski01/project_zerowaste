@@ -21,6 +21,7 @@ CREATE TABLE Orders (
 
 CREATE TABLE Notifications (
     id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    user_id BIGINT NOT NULL,
     order_id BIGINT NOT NULL,
     title VARCHAR(50) NOT NULL,
     content VARCHAR(100) NOT NULL,
@@ -31,7 +32,7 @@ CREATE TABLE Users (
     id SERIAL UNIQUE PRIMARY KEY NOT NULL,
     home_address BIGINT NOT NULL,
     name VARCHAR(50) NOT NULL,
-    surname VARCHAR(50) NOT NULL,
+    surname VARCHAR(50),
     email VARCHAR(100) NOT NULL,
     role VARCHAR(50) NOT NULL,
     login VARCHAR(50) NOT NULL,
@@ -112,6 +113,8 @@ ALTER TABLE Orders ADD CONSTRAINT ORDER_ADDRESS_FK FOREIGN KEY (address_id) REFE
 
 ALTER TABLE Notifications ADD CONSTRAINT NOTIFICATION_ORDER_FK FOREIGN KEY (order_id) REFERENCES Orders (id);
 
+ALTER TABLE Notifications ADD CONSTRAINT NOTIFICATION_USER_FK FOREIGN KEY (user_id) REFERENCES Users (id);
+
 ALTER TABLE Users ADD CONSTRAINT USER_ADDRESS_FK FOREIGN KEY (home_address) REFERENCES Addresses (id);
 
 ALTER TABLE Sellers ADD CONSTRAINT SELLER_ADDRESS_FK FOREIGN KEY (address_id) REFERENCES Addresses (id);
@@ -141,3 +144,78 @@ ALTER TABLE User_Seller ADD CONSTRAINT PREVIEW_US_USER FOREIGN KEY (user_id) REF
 ALTER TABLE User_Seller ADD CONSTRAINT PREVIEW_US_SELLER FOREIGN KEY (seller_id) REFERENCES Sellers (id);
 
 ALTER TABLE Products ADD CONSTRAINT PRODUCT_USER_FK FOREIGN KEY (user_id) REFERENCES Users (id);
+
+INSERT INTO Addresses (city, street_name, building_number, apartment_number, postcode)
+VALUES ('Warsaw', 'Wiejska', 15, 2, '15302');
+
+INSERT INTO Addresses (city, street_name, building_number, apartment_number, postcode)
+VALUES ('Bialystok', 'Mazowiecka', 39, 3, '15302');
+
+INSERT INTO Addresses (city, street_name, building_number, apartment_number, postcode)
+VALUES ('Sokolow Podlaski', 'Wyspianskiego', 4, 2, '19203');
+
+INSERT INTO Users (home_address, name, surname, email, role, login, password, account_status)
+VALUES (2, 'Bartosz', 'Wisniewski', 'bartekx3000@gmail.com', 'ROLE_ADMIN', 'admin', '$2a$12$D97BW/WudLfGsz9KDjL.R.QJAiXQAwcJnGkoYCUq4x8mIvXibTO7m', 'ACTIVE');
+
+INSERT INTO Users (home_address, name, surname, email, role, login, password, account_status)
+VALUES (1, 'Rafal', 'Mickiewicz', 'mickiewicz467@gmail.com', 'ROLE_USER', 'user', '$2a$12$6TgJBhHKwc1yAYJ.Yym9v.oeNmjCLC/CmGcOtRqSvfaehEDEiG66a', 'ACTIVE');
+
+INSERT INTO Users (home_address, name, surname, email, role, login, password, account_status)
+VALUES (3, 'Biedronka', null, 'biedronka@wp.pl', 'ROLE_SELLER', 'biedronka', '$2a$12$h0bpeH4Pk2EuHy4fs5xOtuRl5tSVMQhjYrZaoi9eLHr2vGJ7OL0eG', 'ACTIVE');
+
+INSERT INTO Users (home_address, name, surname, email, role, login, password, account_status)
+VALUES (1, 'Tesco', null, 'tesco@o2.pl', 'ROLE_SELLER', 'tesco', '$2a$12$vwgloGRAqEiE9HgFMXj3/OZONhMbmkqnNTbGPghELGR6Q9sxcbUFS', 'ACTIVE');
+
+INSERT INTO Sellers (address_id, name, login, password)
+VALUES (3, 'Biedronka', 'biedronka', '$2a$12$h0bpeH4Pk2EuHy4fs5xOtuRl5tSVMQhjYrZaoi9eLHr2vGJ7OL0eG');
+
+INSERT INTO Sellers (address_id, name, login, password)
+VALUES (1, 'Tesco', 'tesco', '$2a$12$vwgloGRAqEiE9HgFMXj3/OZONhMbmkqnNTbGPghELGR6Q9sxcbUFS');
+
+INSERT INTO User_Seller (user_id, seller_id)
+VALUES (3, 1);
+
+INSERT INTO User_Seller (user_id, seller_id)
+VALUES (4, 2);
+
+INSERT INTO Products (user_id, name, description, price)
+VALUES (3, 'Ham', 'Delicious meat', 29.99);
+
+INSERT INTO Products (user_id, name, description, price)
+VALUES (3, 'Yoghurt', 'Without lactose', 3.99);
+
+INSERT INTO Products (user_id, name, description, price)
+VALUES (3, 'Pizza', 'Fast meal for your dinner', 12.99);
+
+INSERT INTO Products (user_id, name, description, price)
+VALUES (4, 'Sugar', 'To make your life less bitter', 4.99);
+
+INSERT INTO Products (user_id, name, description, price)
+VALUES (4, 'Spaghetti', 'Twisted Meal', 29.99);
+
+INSERT INTO Products (user_id, name, description, price)
+VALUES (4, 'Tomatoes', 'Fresh tomatoes', 11.99);
+
+INSERT INTO Packages (seller_id, user_id, product_id, name, expiry_date)
+VALUES (1, 3, 1, 'Meat Package', '2024-01-10');
+
+INSERT INTO Packages (seller_id, user_id, product_id, name, expiry_date)
+VALUES (1, 3, 2, 'Dairy Drop', '2023-12-21');
+
+INSERT INTO Packages (seller_id, user_id, product_id, name, expiry_date)
+VALUES (2, 4, 4, 'Sweet Surprise', '2023-12-29');
+
+INSERT INTO Packages (seller_id, user_id, product_id, name, expiry_date)
+VALUES (2, 4, 5, 'Twisted Package', '2023-12-24');
+
+INSERT INTO Product_Package (product_id, package_id, quantity)
+VALUES (1, 1, 2);
+
+INSERT INTO Product_Package (product_id, package_id, quantity)
+VALUES (2, 2, 4);
+
+INSERT INTO Product_Package (product_id, package_id, quantity)
+VALUES (4, 3, 5);
+
+INSERT INTO Product_Package (product_id, package_id, quantity)
+VALUES (5, 4, 1);

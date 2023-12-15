@@ -21,6 +21,7 @@
             <thead>
             <tr>
                 <th>Product</th>
+                <th>Restaurant</th>
                 <th>Rating</th>
                 <th>Comment</th>
             </tr>
@@ -28,6 +29,7 @@
             <tbody>
             <tr th:each="productReview : ${product_reviews}">
                 <td th:text="${productReview.getProduct().name}"></td>
+                <td th:text="${productReview.getProduct().getUser().name}"></td>
                 <td th:text="${productReview.getRating()}"></td>
                 <td th:text="${productReview.getComment()}"></td>
                 <td>

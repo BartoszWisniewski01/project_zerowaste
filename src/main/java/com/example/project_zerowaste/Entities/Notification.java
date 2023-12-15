@@ -2,6 +2,9 @@ package com.example.project_zerowaste.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Entity
@@ -10,6 +13,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @Getter
+@Builder
 
 public class Notification {
     @Id
@@ -25,4 +29,7 @@ public class Notification {
     private String content;
     @Column(name = "date")
     private Date date;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
