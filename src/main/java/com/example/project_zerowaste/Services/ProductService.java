@@ -3,22 +3,22 @@ package com.example.project_zerowaste.Services;
 import com.example.project_zerowaste.Entities.*;
 import com.example.project_zerowaste.Entities.Package;
 import com.example.project_zerowaste.Repositories.*;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductService {
-    private ProductRepository productRepository;
-    private PackageRepository packageRepository;
-    private OrderRepository orderRepository;
-    private TicketRepository ticketRepository;
-    private Product_PackageRepository productPackageRepository;
-    private Product_ReviewRepository productReviewRepository;
-    private NotificationRepository notificationRepository;
-    private UserService userService;
+    private final ProductRepository productRepository;
+    private final PackageRepository packageRepository;
+    private final OrderRepository orderRepository;
+    private final TicketRepository ticketRepository;
+    private final Product_PackageRepository productPackageRepository;
+    private final Product_ReviewRepository productReviewRepository;
+    private final NotificationRepository notificationRepository;
+    private final UserService userService;
 
     public void save(Product product, String username) {
         product.setUser(userService.findByUsername(username));

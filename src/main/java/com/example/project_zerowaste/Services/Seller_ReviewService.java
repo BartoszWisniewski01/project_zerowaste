@@ -2,15 +2,15 @@ package com.example.project_zerowaste.Services;
 
 import com.example.project_zerowaste.Entities.Seller_Review;
 import com.example.project_zerowaste.Repositories.Seller_ReviewRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Seller_ReviewService {
-    private Seller_ReviewRepository sellerReviewRepository;
-    private UserService userService;
+    private final Seller_ReviewRepository sellerReviewRepository;
+    private final UserService userService;
 
     public void save(Seller_Review sellerReview, String username) {
         sellerReview.setUser(userService.findByUsername(username));

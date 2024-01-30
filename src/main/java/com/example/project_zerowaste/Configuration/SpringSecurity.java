@@ -11,12 +11,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import com.example.project_zerowaste.Services.UserService;
 
 @Configuration
 @AllArgsConstructor
 @EnableWebSecurity
 public class SpringSecurity {
     private ApplicationUserDetailsService userDetailsService;
+    private UserService userService;
 
     @Bean
     public static PasswordEncoder passwordEncoder() {
@@ -26,12 +28,12 @@ public class SpringSecurity {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeHttpRequests((authorize) ->
+                .authorizeRequests((authorize) ->
                         authorize.requestMatchers("/**","/register", "/register/**", "/login","/login/**").permitAll()
-                                .requestMatchers("/products/all", "/packages/all", "/orders/all","/notifications/all","/mainpage").hasAnyRole("USER", "ADMIN", "SELLER")
-                                .requestMatchers("/products/**", "/packages/**").hasAnyRole("SELLER")
-                                .requestMatchers("/product-review/**", "/seller-review/**", "/orders/**", "/tickets/*/add" ).hasAnyRole("USER")
-                                .requestMatchers("/admin", "/admin/**","/tickets/**").hasRole("ADMIN")
+                                .requestMatchers("/products/all", "/packages/all", "/orders/all","/notifications/all","/mainpage").access("hasAnyRole('USER', 'ADMIN', 'SELLER') and @userService.checkUserStatus(authentication)")
+                                .requestMatchers("/products/**", "/packages/**").access("hasAnyRole('SELLER') and @userService.checkUserStatus(authentication)")
+                                .requestMatchers("/product-review/**", "/seller-review/**", "/orders/**", "/tickets/*/add" ).access("hasAnyRole('USER') and @userService.checkUserStatus(authentication)")
+                                .requestMatchers("/admin", "/admin/**","/tickets/**").access("hasAnyRole('ADMIN') and @userService.checkUserStatus(authentication)")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")

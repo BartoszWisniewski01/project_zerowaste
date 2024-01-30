@@ -6,22 +6,23 @@ import com.example.project_zerowaste.Entities.User_Seller;
 import com.example.project_zerowaste.Repositories.SellerRepository;
 import com.example.project_zerowaste.Repositories.UserRepository;
 import com.example.project_zerowaste.Repositories.User_SellerRepository;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 
-@AllArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class UserService {
-    UserRepository userRepository;
-    PasswordEncoder passwordEncoder;
-    SellerRepository sellerRepository;
-    User_SellerRepository user_sellerRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final SellerRepository sellerRepository;
+    private final User_SellerRepository user_sellerRepository;
 
-    @Builder
     public void save(User user) {
         if(userRepository.existsByUsername(user.getUsername())) {
             throw new IllegalArgumentException("Username with name exists: " + user.getUsername());
@@ -72,6 +73,17 @@ public class UserService {
 
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public UserDetails loadUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Transactional()
+    public boolean checkUserStatus(Authentication authentication) {
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username);
+        return "ACTIVE".equals(user.getAccountStatus());
     }
 }
 

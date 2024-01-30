@@ -10,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Builder
+@Setter
 
 public class User_Seller {
     @Id

@@ -3,10 +3,11 @@ package com.example.project_zerowaste.Repositories;
 import com.example.project_zerowaste.Entities.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import java.util.Optional;
 
 @Repository
 public interface AddressRepository extends JpaRepository<Address , Long> {
     @Override
     void deleteById(Long aLong);
-    Address getById(int address_id);
+    Optional<Address> findById(Long addressId);
 }

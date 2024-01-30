@@ -14,6 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Builder
+@Setter
 
 public class Notification {
     @Id

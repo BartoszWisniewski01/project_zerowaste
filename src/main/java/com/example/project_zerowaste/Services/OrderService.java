@@ -2,7 +2,6 @@ package com.example.project_zerowaste.Services;
 
 import com.example.project_zerowaste.Entities.Notification;
 import com.example.project_zerowaste.Entities.Order;
-import com.example.project_zerowaste.Entities.Ticket;
 import com.example.project_zerowaste.Entities.User;
 import com.example.project_zerowaste.Repositories.NotificationRepository;
 import com.example.project_zerowaste.Repositories.OrderRepository;

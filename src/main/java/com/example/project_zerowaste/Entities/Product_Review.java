@@ -9,6 +9,8 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @Getter
+@Setter
+@Builder
 
 public class Product_Review {
     @Id

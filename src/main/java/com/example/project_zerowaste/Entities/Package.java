@@ -13,6 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 
 public class Package {
     @Id

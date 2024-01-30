@@ -12,6 +12,8 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @Getter
+@Setter
+@Builder
 
 public class Order {
     @Id

@@ -2,9 +2,7 @@ package com.example.project_zerowaste.Entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +14,9 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "Users")
+@Getter
+@Builder
+
 public class User implements UserDetails {
     @Id
     @Column(name = "id")
@@ -64,4 +65,8 @@ public class User implements UserDetails {
     }
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<User_Seller> user_seller;
+
+    public String getAccountStatus() {
+        return account_status;
+    }
 }

@@ -3,21 +3,21 @@ package com.example.project_zerowaste.Services;
 import com.example.project_zerowaste.Entities.*;
 import com.example.project_zerowaste.Entities.Package;
 import com.example.project_zerowaste.Repositories.*;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PackageService {
-    private PackageRepository packageRepository;
-    private Product_PackageRepository productPackageRepository;
-    private User_SellerRepository userSellerRepository;
-    private TicketRepository ticketRepository;
-    private OrderRepository orderRepository;
-    private NotificationRepository notificationRepository;
-    private UserService userService;
+    private final PackageRepository packageRepository;
+    private final Product_PackageRepository productPackageRepository;
+    private final User_SellerRepository userSellerRepository;
+    private final TicketRepository ticketRepository;
+    private final OrderRepository orderRepository;
+    private final NotificationRepository notificationRepository;
+    private final UserService userService;
 
     public void save(Package pack, String username) {
         User user = userService.findByUsername(username);
@@ -40,7 +40,8 @@ public class PackageService {
         return packageRepository.findAll();
     }
     public void deletePackageById(Long id) {
-        List<Order> orders = orderRepository.findAllByPack(packageRepository.findById(id));
+        List<Order> orders = orderRepository.findAllByPack(Optional.ofNullable(packageRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid package ID: " + id))));
         ProductService.deleteTicketsNotifications(orders, notificationRepository, ticketRepository, orderRepository);
         packageRepository.deleteById(id);
     }

@@ -1,6 +1,6 @@
 package com.example.project_zerowaste.Entities;
 
-import jakarta.persistence.*;
+import  jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -9,6 +9,8 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @Getter
+@Setter
+@Builder
 
 public class Address {
     @Id
